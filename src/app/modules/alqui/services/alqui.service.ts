@@ -4,38 +4,34 @@ import { Observable } from 'rxjs';
 import { Alqui } from '../../../models/alquiler';
 import { Lect } from '../../../models/lector';
 import { Lib } from '../../../models/libr';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlquiService {
 
-  public apiUrl = 'http://localhost:8000/api/alquileres';
-  public proyectoUrl = 'http://localhost:8000/api/libros';
-  public xUrl = 'http://localhost:8000/api/lectores';
+  private apiUrl = environment.apiUrl;
 
+  constructor(private http: HttpClient) {}
 
-
-  constructor(public http: HttpClient) {}
-  
   agregarAlquiler(alquiler: Alqui): Observable<Alqui> {
-    return this.http.post<Alqui>(`${this.apiUrl}/InsertAlqui`, alquiler);
+    return this.http.post<Alqui>(`${this.apiUrl}/alquileres/InsertAlqui`, alquiler);
   }
 
   obtenerLector(): Observable<Lect[]> {
-    return this.http.get<Lect[]>(`${this.xUrl}/ListLect`);
+    return this.http.get<Lect[]>(`${this.apiUrl}/lectores/ListLect`);
   }
 
   obtenerLibro(): Observable<Lib[]> {
-    return this.http.get<Lib[]>(`${this.proyectoUrl}/ListBook`);
+    return this.http.get<Lib[]>(`${this.apiUrl}/libros/ListBook`);
   }
 
   listarAlquiler(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/ListAlqui`);
+    return this.http.get(`${this.apiUrl}/alquileres/ListAlqui`);
   }
 
-//DeleteBook
   deleteAlquiler(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/DeleteAlqui/${id}`);
+    return this.http.delete(`${this.apiUrl}/alquileres/DeleteAlqui/${id}`);
   }
 }
