@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Editor } from '../../../models/editorial';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EdiService {
-  public URL: string = 'http://localhost:8000/api/editoriales';
+  public URL: string = `${environment.apiUrl}/editoriales`;
   
   constructor(public http: HttpClient) {}
 
@@ -20,11 +21,11 @@ export class EdiService {
   }
 
   public createEditorial(editorial: Editor): Observable<Editor> {
-    return this.http.post<Editor>(`${this.URL}/InsertEdi`,editorial);
+    return this.http.post<Editor>(`${this.URL}/InsertEdi`, editorial);
   }
 
   public updateEditorial(id: number, editorial: Editor): Observable<Editor> {
-    return this.http.put<Editor>(`${this.URL}/EdidEdi/${id}`,editorial);
+    return this.http.put<Editor>(`${this.URL}/EdidEdi/${id}`, editorial);
   }
 
   public deleteEditorial(id: number): Observable<any> {
