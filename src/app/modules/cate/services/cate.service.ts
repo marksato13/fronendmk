@@ -1,13 +1,14 @@
-  import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cate } from '../../../models/categoria';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CateService {
-  public URL: string = 'http://localhost:8000/api/categorias';
+  public URL: string = `${environment.apiUrl}/categorias`;
   
   constructor(public http: HttpClient) {}
 
@@ -20,11 +21,11 @@ export class CateService {
   }
 
   public createCategoria(categoria: Cate): Observable<Cate> {
-    return this.http.post<Cate>(`${this.URL}/InsertCate`,categoria);
+    return this.http.post<Cate>(`${this.URL}/InsertCate`, categoria);
   }
 
   public updateCategoria(id: number, categoria: Cate): Observable<Cate> {
-    return this.http.put<Cate>(`${this.URL}/EditarCate/${id}`,categoria);
+    return this.http.put<Cate>(`${this.URL}/EditarCate/${id}`, categoria);
   }
 
   public deleteCategoria(id: number): Observable<any> {
