@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Lect } from '../../../models/lector';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LectoresService {
-  public URL: string = 'http://localhost:8000/api/lectores';
+  public URL: string = `${environment.apiUrl}/lectores`;
   
   constructor(public http: HttpClient) {}
 
@@ -20,11 +21,11 @@ export class LectoresService {
   }
 
   public createLector(lector: Lect): Observable<Lect> {
-    return this.http.post<Lect>(`${this.URL}/InsertLect`,lector);
+    return this.http.post<Lect>(`${this.URL}/InsertLect`, lector);
   }
 
   public updateLector(id: number, lector: Lect): Observable<Lect> {
-    return this.http.put<Lect>(`${this.URL}/EdidLect/${id}`,lector);
+    return this.http.put<Lect>(`${this.URL}/EdidLect/${id}`, lector);
   }
 
   public deleteLector(id: number): Observable<any> {
