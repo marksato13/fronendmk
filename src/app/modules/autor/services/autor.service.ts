@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Autr } from '../../../models/autor';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutorService {
-  public URL: string = 'http://localhost:8000/api/autores';
+  public URL: string = `${environment.apiUrl}/autores`;
   
   constructor(public http: HttpClient) {}
 
@@ -20,11 +21,11 @@ export class AutorService {
   }
 
   public createAutor(autor: Autr): Observable<Autr> {
-    return this.http.post<Autr>(`${this.URL}/InsertAutores`,autor);
+    return this.http.post<Autr>(`${this.URL}/InsertAutores`, autor);
   }
 
   public updateAutor(id: number, autor: Autr): Observable<Autr> {
-    return this.http.put<Autr>(`${this.URL}/EdidAutores/${id}`,autor);
+    return this.http.put<Autr>(`${this.URL}/EdidAutores/${id}`, autor);
   }
 
   public deleteAutor(id: number): Observable<any> {
